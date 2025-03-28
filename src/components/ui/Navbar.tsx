@@ -1,14 +1,13 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "./button";
 import { ShoppingBag, ShoppingCart, Star } from "lucide-react";
-import { Input } from "./input";
-
 interface Navbar {
     navTitle: string;
-    home?: string
+    home?: string;
+    input?: ReactNode
 }
  
-const Navbar: React.FC<Navbar> = ({ navTitle, home }) => {
+const Navbar: React.FC<Navbar> = ({ navTitle, home, input }) => {
 
 
 
@@ -19,7 +18,7 @@ const Navbar: React.FC<Navbar> = ({ navTitle, home }) => {
                 {navTitle}
             </div>
             <div>
-                <Input placeholder="Search" />
+                {input}
             </div>
             <div className="flex space-x-4">
                 <span>{home}</span>

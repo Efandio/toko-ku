@@ -10,8 +10,6 @@ const initialState: Products = {
     items: []
 };
 
-console.log(initialState)
-
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -19,14 +17,21 @@ const productsSlice = createSlice({
         setProducts: (state, action: PayloadAction<ProductsType[]>) => {
             state.items = action.payload;
         },
-        searchProducts: (state, action: PayloadAction) => {},
-        randomProductsRender: (state, action: PayloadAction) => {},
-        filterProductsCategory: (state, action: PayloadAction) => {},
-        filterProductsPrice: (state, action: PayloadAction) => {},
-        filterProductsRating: (state, action: PayloadAction) => {},
+
+        filterProductsCategory: (state, action: PayloadAction<string>) => {
+            state.items = state.items.filter(products => products.category === action.payload)
+        },
+
+        filterProductsPrice: (state, action: PayloadAction<number>) => {
+            state.items = state.items.filter(products => products.price === action.payload)
+        },
+        
+        filterProductsRating: (state, action: PayloadAction<number>) => {
+            state.items = state.items.filter(products => products.rating.rate === action.payload)
+        },
     }
 })
 
-export const { setProducts, searchProducts, randomProductsRender, filterProductsCategory, filterProductsPrice, filterProductsRating } = productsSlice.actions
+export const { setProducts, filterProductsCategory, filterProductsPrice, filterProductsRating } = productsSlice.actions
 
 export default productsSlice.reducer
