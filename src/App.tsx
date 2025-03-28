@@ -12,7 +12,7 @@ function App() {
     <ProductsFetcher />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="details" element={<ProductsDetails />} />
+        <Route path='details/:id' element={<ProductsDetails />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="favorite" element={<FavoritePage />} />
       </Routes>
