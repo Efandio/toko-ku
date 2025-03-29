@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import Navbar from "../ui/Navbar";
 import { Input } from "../ui/input";
 import { Card, CardContent, CardTitle } from "../ui/card";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { Button } from "../ui/button";
+import { ShoppingCart, Star } from "lucide-react";
 
 const MainPage = () => {
 
@@ -22,7 +24,22 @@ const MainPage = () => {
 
     return (
         <main className="px-10">
-            <Navbar navTitle={"Toku-Ku"} input={<Input placeholder="Search" />} />
+            <Navbar navTitle={"Toku-Ku"} input={<Input placeholder="Search" />}>
+                <NavLink to={'cart'}>
+                    { ({ isActive }: { isActive: boolean }) => (
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <ShoppingCart color="#ffffff" className={isActive ? 'fill-white' : 'fill-none'} strokeWidth={1.5} />
+                        Cart
+                    </Button>
+                    ) }
+                </NavLink>
+                <NavLink to={'favorite'}>
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <Star color="#ffffff" strokeWidth={1.5} />
+                        Favorite
+                    </Button>
+                </NavLink>
+            </Navbar>
 
             <section className="grid grid-cols-5 gap-5 pt-20">
                 {randomProducts(data, data.length).map((a) => (
