@@ -5,8 +5,9 @@ import { ShoppingBag, Star } from "lucide-react";
 import { Button } from "../ui/button";
 import Navbar from "../ui/Navbar";
 import { setCart } from "@/app/slice/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
+import { RootState } from "@/app/store";
 
 const ProductsDetails = () => {
 
@@ -15,6 +16,7 @@ const ProductsDetails = () => {
     const dispatch = useDispatch()
 
     const { data, isLoading, error } = useGetProductsByIdQuery(parseId as number)
+    const dataCart = useSelector((state: RootState) => state.cart.items);
 
     const handleAddToCart = () => {
         if (data) {
@@ -27,6 +29,12 @@ const ProductsDetails = () => {
                     quantity: 1
                 })
             )
+            const totalQuantity = dataCart.reduce((sum, item) => sum + item.quantity, 0);
+            toast('Item added to cart', {
+            description: `Total items: ${totalQuantity + 1}`
+        });
+        } else {
+            toast('Adding failed')
         }
     }
 
@@ -62,7 +70,7 @@ if (error) return <div className="text-3xl text-white">Error</div>
                         <div className="flex items-center gap-4">
                             <Button onClick={() => {
                                 handleAddToCart();
-                                toast('Item added to cart')
+                                
                             }} className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
                             <Button className="cursor-pointer hover:bg-gray-800">Buy Now</Button>
                         </div>
