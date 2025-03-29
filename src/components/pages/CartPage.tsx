@@ -3,9 +3,9 @@ import Navbar from "../ui/Navbar";
 const CartPage = () => {
     return (
         <>
-        <a href="/"><Navbar navTitle={"Keranjang-Ku"} /></a>
+        <Navbar navTitle={"Keranjang-Ku"} />
         <main>
-            
+            s
         </main>
         </>
     )
