@@ -4,22 +4,41 @@ import { Badge } from "../ui/badge";
 import { ShoppingBag, Star } from "lucide-react";
 import { Button } from "../ui/button";
 import Navbar from "../ui/Navbar";
+import { setCart } from "@/app/slice/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductsDetails = () => {
 
     const { id } = useParams()
-    const parseId = id ? parseInt(id, 10) : undefined
+    const parseId = id ? parseInt(id, 10) : null
+    const dispatch = useDispatch()
+
     const { data, isLoading, error } = useGetProductsByIdQuery(parseId as number)
+
+    const handleAddToCart = () => {
+        if (data) {
+            dispatch(
+                setCart({
+                    id: data.id,
+                    image: data.image,
+                    title: data.title,
+                    price: data.price,
+                    quantity: 1
+                })
+            )
+        }
+    }
+
 
 if (isLoading) return <div className="text-3xl text-white">Loading</div>;
 if (error) return <div className="text-3xl text-white">Error</div>
 
     return (
-        <main>
+        <main className="mt-32 lg:mt-0">
             <a href="/"><Navbar navTitle={"Toku-Ku"} /></a>
-            <main className="text-white grid grid-cols-2 gap-5 px-10 pt-16 py-10 h-screen">
+            <main className="text-white grid grid-cols-1 lg:grid-cols-2 gap-5 px-10 pt-16 py-10 h-screen">
                 <section className="flex items-center justify-center bg-white rounded-lg">
-                    <img className="w-[400px] h-[400px] fixed" src={data?.image} alt={data?.title} />
+                    <img className="lg:w-[400px] lg:h-[400px] fixed" src={data?.image} alt={data?.title} />
                 </section>
 
                 <section className="h-full space-y-5">
@@ -40,7 +59,7 @@ if (error) return <div className="text-3xl text-white">Error</div>
                             </span>
                         </div>
                         <div className="flex items-center gap-4">
-                            <Button className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
+                            <Button onClick={handleAddToCart} className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
                             <Button className="cursor-pointer hover:bg-gray-800">Buy Now</Button>
                         </div>
                     </div>

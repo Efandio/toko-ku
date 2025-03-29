@@ -1,15 +1,14 @@
 import React, { ReactNode } from "react";
 import { Button } from "./button";
 import { ShoppingBag, ShoppingCart, Star } from "lucide-react";
+import { NavLink } from "react-router";
 interface Navbar {
     navTitle: string;
     home?: string;
-    input?: ReactNode
+    input?: ReactNode;
 }
  
 const Navbar: React.FC<Navbar> = ({ navTitle, home, input }) => {
-
-
 
     return (
         <nav className="text-white flex justify-between items-center py-2 w-full px-20 fixed">
@@ -22,14 +21,20 @@ const Navbar: React.FC<Navbar> = ({ navTitle, home, input }) => {
             </div>
             <div className="flex space-x-4">
                 <span>{home}</span>
-                <Button className="cursor-pointer hover:bg-gray-800">
-                    <ShoppingCart color="#ffffff" strokeWidth={1.5} />
-                    Cart
-                </Button>
-                <Button className="cursor-pointer hover:bg-gray-800">
-                    <Star color="#ffffff" strokeWidth={1.5} />
-                    Favorite
-                </Button>
+                <NavLink to={'cart'}>
+                    { ({ isActive }: { isActive: boolean }) => (
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <ShoppingCart color="#ffffff" className={isActive ? 'fill-white' : 'fill-none'} strokeWidth={1.5} />
+                        Cart
+                    </Button>
+                    ) }
+                </NavLink>
+                <NavLink to={'favorite'}>
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <Star color="#ffffff" strokeWidth={1.5} />
+                        Favorite
+                    </Button>
+                </NavLink>
             </div>
         </nav>
     )
