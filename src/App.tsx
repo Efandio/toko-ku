@@ -4,6 +4,7 @@ import ProductsFetcher from "./app/fetcher"
 import ProductsDetails from "./components/pages/ProductsDetails"
 import CartPage from "./components/pages/CartPage"
 import FavoritePage from "./components/pages/FavoritePage"
+import { Toaster } from "sonner"
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="cart" element={<CartPage />} />
         <Route path="favorite" element={<FavoritePage />} />
       </Routes>
+      <Toaster />
     </main>
   )
 }

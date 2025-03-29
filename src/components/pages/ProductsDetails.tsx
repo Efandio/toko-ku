@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import Navbar from "../ui/Navbar";
 import { setCart } from "@/app/slice/cartSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 const ProductsDetails = () => {
 
@@ -35,7 +36,7 @@ if (error) return <div className="text-3xl text-white">Error</div>
 
     return (
         <main className="mt-32 lg:mt-0">
-            <a href="/"><Navbar navTitle={"Toku-Ku"} /></a>
+            <Navbar navTitle={"Toku-Ku"} />
             <main className="text-white grid grid-cols-1 lg:grid-cols-2 gap-5 px-10 pt-16 py-10 h-screen">
                 <section className="flex items-center justify-center bg-white rounded-lg">
                     <img className="lg:w-[400px] lg:h-[400px] fixed" src={data?.image} alt={data?.title} />
@@ -59,7 +60,10 @@ if (error) return <div className="text-3xl text-white">Error</div>
                             </span>
                         </div>
                         <div className="flex items-center gap-4">
-                            <Button onClick={handleAddToCart} className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
+                            <Button onClick={() => {
+                                handleAddToCart();
+                                toast('Item added to cart')
+                            }} className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
                             <Button className="cursor-pointer hover:bg-gray-800">Buy Now</Button>
                         </div>
                     </div>
