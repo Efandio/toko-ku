@@ -1,20 +1,26 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../ui/Navbar";
 import { RootState } from "@/app/store";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
+import { removeProducts } from "@/app/slice/cartSlice";
 
 const CartPage = () => {
 
     const cart = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch();
+
+    const handleDelete = (id: number) => {
+        dispatch(removeProducts(id))
+    }
 
     return (
         <main className="">
             <Navbar navTitle={"Keranjang-Ku"} />
             <main className="pt-24 grid lg:grid-cols-1 lg:gap-5 lg:px-10">
                 {cart.map((a) => (
-                    <Card>
+                    <Card key={a.id}>
                         <CardContent className="flex justify-between">
                             <div className="flex items-center gap-4">
                                 <div>
@@ -27,7 +33,8 @@ const CartPage = () => {
                             </div>
                             <div className="flex flex-col gap-2 justify-center items-center">
                                 <div>
-                                    <Trash2 className="cursor-pointer" color="#ff0000" strokeWidth={1.5} />
+                                        {/* Trash Icon */}
+                                    <Trash2 onClick={() => handleDelete(a.id)} className="cursor-pointer" color="#ff0000" strokeWidth={1.5} />
                                 </div>
                                 <div className="gap-2 flex">
                                     <Button className="text-sm" size='sm'>-</Button>
