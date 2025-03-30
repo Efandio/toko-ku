@@ -4,7 +4,8 @@ import { RootState } from "@/app/store";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
-import { removeProducts } from "@/app/slice/cartSlice";
+import { removeProducts, addQuantiy, reduceQuantity } from "@/app/slice/cartSlice";
+import { toast } from "sonner";
 
 const CartPage = () => {
 
@@ -13,6 +14,15 @@ const CartPage = () => {
 
     const handleDelete = (id: number) => {
         dispatch(removeProducts(id))
+        toast('Product Deleted')
+    };
+
+    const handleIncrement = (id: number) => {
+        dispatch(addQuantiy(id))
+    };
+
+    const handleDecrement = (id: number) => {
+        dispatch(reduceQuantity(id))
     }
 
     return (
@@ -37,9 +47,9 @@ const CartPage = () => {
                                     <Trash2 onClick={() => handleDelete(a.id)} className="cursor-pointer" color="#ff0000" strokeWidth={1.5} />
                                 </div>
                                 <div className="gap-2 flex">
-                                    <Button className="text-sm" size='sm'>-</Button>
+                                    <Button onClick={() => handleDecrement(a.id)} className="text-sm cursor-pointer" size='sm'>-</Button>
                                     <span>{a.quantity}</span>
-                                    <Button className="text-sm" size='sm'>+</Button>
+                                    <Button onClick={() => handleIncrement(a.id)} className="text-sm cursor-pointer" size='sm'>+</Button>
                                 </div>
                                 <div className="flex gap-2">
                                     <Button size='sm'>Checkout</Button>

@@ -5,6 +5,7 @@ import ProductsDetails from "./components/pages/ProductsDetails"
 import CartPage from "./components/pages/CartPage"
 import FavoritePage from "./components/pages/FavoritePage"
 import { Toaster } from "sonner"
+import CheckoutPage from "./components/pages/CheckoutPage"
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='details/:id' element={<ProductsDetails />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="favorite" element={<FavoritePage />} />
+        <Route path="checkout" element={<CheckoutPage />} />
       </Routes>
       <Toaster />
     </main>
