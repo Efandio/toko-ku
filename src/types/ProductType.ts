@@ -1,4 +1,4 @@
-export type ProductsType = {
+export interface ProductsType extends cartProductsType {
     id: number;
     title: string;
     price: number;
@@ -9,4 +9,8 @@ export type ProductsType = {
         rate: number;
         count: number;
     }
-}
+};
+
+export interface cartProductsType {
+    quantity: number;
+};

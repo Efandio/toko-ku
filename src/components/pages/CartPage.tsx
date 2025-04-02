@@ -6,11 +6,13 @@ import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { removeProducts, addQuantiy, reduceQuantity } from "@/app/slice/cartSlice";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
 
     const cart = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleDelete = (id: number) => {
         dispatch(removeProducts(id))
@@ -23,14 +25,14 @@ const CartPage = () => {
 
     const handleDecrement = (id: number) => {
         dispatch(reduceQuantity(id))
-    }
+    };
 
     return (
         <main className="">
             <Navbar navTitle={"Keranjang-Ku"} />
             <main className="pt-24 grid lg:grid-cols-1 lg:gap-5 lg:px-10">
                 {cart.map((a) => (
-                    <Card key={a.id}>
+                    <Card className="py-4" key={a.id}>
                         <CardContent className="flex justify-between">
                             <div className="flex items-center gap-4">
                                 <div>
@@ -52,7 +54,9 @@ const CartPage = () => {
                                     <Button onClick={() => handleIncrement(a.id)} className="text-sm cursor-pointer" size='sm'>+</Button>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button size='sm'>Checkout</Button>
+                                    <Button onClick={() => {
+                                        navigate(`/checkout/${a.id}`, {state: a.quantity});
+                                    }} size='sm'>Checkout</Button>
                                 </div>
                             </div>
                         </CardContent>
