@@ -5,6 +5,7 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Card } from "../ui/card";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const CheckoutPage = () => {
 
@@ -17,8 +18,8 @@ const CheckoutPage = () => {
 
     const handleActive = (method: 'cod' | 'creditCard') => {
         setActivePayment(method);
-        console.log(activePayment)
-    }
+        toast(`Selected Method : ${method === 'cod' ? 'COD' : 'Credit Card'}`);
+    };
 
     const location = useLocation();
     const productsQuantity = location.state;
