@@ -43,7 +43,7 @@ const MainPage = () => {
 
             <section className="grid grid-cols-5 gap-5 pt-20">
                 {randomProducts(data, data.length).map((a) => (
-                    <Card onClick={() => {navigate(`/details/${a.id}`)}} key={a.id} className="">
+                    <Card onClick={() => {navigate(`/details/${a.id}`)}} key={a.id} className="py-4">
                         <CardContent className="space-y-5">
                             <div>
                                 <img className="w-40 h-40 cursor-pointer" src={a.image} alt={a.title} />

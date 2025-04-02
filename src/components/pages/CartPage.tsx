@@ -29,7 +29,9 @@ const CartPage = () => {
 
     return (
         <main className="">
-            <Navbar navTitle={"Keranjang-Ku"} />
+            <Navbar navTitle={"Keranjang-Ku"}>
+                
+            </Navbar>
             <main className="pt-24 grid lg:grid-cols-1 lg:gap-5 lg:px-10">
                 {cart.map((a) => (
                     <Card className="py-4" key={a.id}>
@@ -55,6 +57,7 @@ const CartPage = () => {
                                 </div>
                                 <div className="flex gap-2">
                                     <Button onClick={() => {
+                                            // for sending quanitity 
                                         navigate(`/checkout/${a.id}`, {state: a.quantity});
                                     }} size='sm'>Checkout</Button>
                                 </div>
