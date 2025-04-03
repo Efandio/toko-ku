@@ -1,5 +1,5 @@
 import { useGetProductsByIdQuery } from "@/app/services/api";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { Badge } from "../ui/badge";
 import { ShoppingBag, Star } from "lucide-react";
 import { Button } from "../ui/button";
@@ -81,7 +81,12 @@ if (error) return <div className="text-3xl text-white">Error</div>
     return (
         <main className="mt-32 lg:mt-0">
             <Navbar navTitle={"Toku-Ku"}>
-                
+                <NavLink to={'/favorite'}>
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <Star color="#ffffff" strokeWidth={1.5} />
+                        Favorite
+                    </Button>
+                </NavLink>
             </Navbar>
             <main className="text-white grid grid-cols-1 lg:grid-cols-2 gap-5 px-10 pt-16 py-10 h-screen">
                 <section className="flex items-center justify-center bg-white rounded-lg">
