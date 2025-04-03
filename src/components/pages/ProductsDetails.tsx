@@ -8,15 +8,31 @@ import { setCart } from "@/app/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { RootState } from "@/app/store";
+import { useState } from "react";
 
 const ProductsDetails = () => {
 
-    const { id } = useParams()
+    const { id } = useParams();
     const parseId = id ? parseInt(id, 10) : null
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const { data, isLoading, error } = useGetProductsByIdQuery(parseId as number)
+    const { data, isLoading, error } = useGetProductsByIdQuery(parseId as number);
     const dataCart = useSelector((state: RootState) => state.cart.items);
+
+    const [isFavorite, setIsFavorite] = useState<boolean>(true);
+    const [favorite, setFavorite] = useState<string>('');
+    const handleFavorite = () => {
+        setIsFavorite(!isFavorite);
+        if (isFavorite) {
+            setFavorite('yellow');
+            toast('added to favorite');
+        } else {
+            setFavorite('');
+            toast('remove from favorite')
+        }
+        console.log(isFavorite)
+    }
+    
 
     const handleAddToCart = () => {
         if (data) {
@@ -52,7 +68,12 @@ if (error) return <div className="text-3xl text-white">Error</div>
 
                 <section className="h-full space-y-5">
                     <header>
-                        <Badge className="bg-white text-black">{data?.category}</Badge>
+                        <div className="flex justify-between">
+                            <Badge className="bg-white text-black">{data?.category}</Badge>
+                            <Button onClick={handleFavorite} className="cursor-pointer">
+                                <Star fill={favorite} strokeWidth={1.75} />
+                            </Button>
+                        </div>
                         <h1 className="text-3xl font-semibold pt-3 pb-1">{data?.title}</h1>
                         <h2 className="text-2xl">${data?.price}</h2>
                     </header>
@@ -70,7 +91,6 @@ if (error) return <div className="text-3xl text-white">Error</div>
                         <div className="flex items-center gap-4">
                             <Button onClick={() => {
                                 handleAddToCart();
-                                
                             }} className="cursor-pointer hover:bg-gray-800">Add to Cart</Button>
                             <Button className="cursor-pointer hover:bg-gray-800">Buy Now</Button>
                         </div>
