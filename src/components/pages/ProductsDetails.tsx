@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { RootState } from "@/app/store";
 import { useState } from "react";
+import { setFavoriteItems, removeFavoriteItems } from "@/app/slice/favoriteSlice";
 
 const ProductsDetails = () => {
 
@@ -21,17 +22,34 @@ const ProductsDetails = () => {
 
     const [isFavorite, setIsFavorite] = useState<boolean>(true);
     const [favorite, setFavorite] = useState<string>('');
+
     const handleFavorite = () => {
         setIsFavorite(!isFavorite);
         if (isFavorite) {
             setFavorite('yellow');
             toast('added to favorite');
+            // check data for adding items to favorite
+            if (data) {
+                dispatch(
+                    setFavoriteItems({
+                        id: data.id,
+                        title: data.title,
+                        image: data.image,
+                        price: data.price,
+                    })
+                )
+            };
         } else {
             setFavorite('');
             toast('remove from favorite')
+            // same, but this for remove
+            if (data) {
+                dispatch(
+                    removeFavoriteItems(data.id)
+                )
+            };
         }
-        console.log(isFavorite)
-    }
+    };
     
 
     const handleAddToCart = () => {
@@ -52,7 +70,9 @@ const ProductsDetails = () => {
         } else {
             toast('Adding failed')
         }
-    }
+    };
+
+
 
 
 if (isLoading) return <div className="text-3xl text-white">Loading</div>;
@@ -60,7 +80,9 @@ if (error) return <div className="text-3xl text-white">Error</div>
 
     return (
         <main className="mt-32 lg:mt-0">
-            <Navbar navTitle={"Toku-Ku"} />
+            <Navbar navTitle={"Toku-Ku"}>
+                
+            </Navbar>
             <main className="text-white grid grid-cols-1 lg:grid-cols-2 gap-5 px-10 pt-16 py-10 h-screen">
                 <section className="flex items-center justify-center bg-white rounded-lg">
                     <img className="lg:w-[400px] lg:h-[400px] fixed" src={data?.image} alt={data?.title} />

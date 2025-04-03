@@ -7,19 +7,20 @@ const ProductsFetcher = () => {
 
     const { data, isLoading, error } = useGetProductsQuery()
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
+    
     useEffect(() => {
         if (data) {
-            dispatch(setProducts(data))
+            dispatch(setProducts(data));
         }
-    }, [data, dispatch])
+    }, [data, dispatch]);
 
 
     if (isLoading) return <div>Loading</div>;
     if (error) return <div>Error</div>
 
-    return null
+    return null;
 };
 
 export default ProductsFetcher
