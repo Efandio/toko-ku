@@ -3,4 +3,5 @@ export interface FavoriteType {
     title: string;
     image: string;
     price: number;
+    isFavorite?: string;
 }

@@ -1,7 +1,7 @@
 import { useGetProductsByIdQuery } from "@/app/services/api";
 import { NavLink, useParams } from "react-router";
 import { Badge } from "../ui/badge";
-import { ShoppingBag, Star } from "lucide-react";
+import { ShoppingBag, ShoppingCart, Star } from "lucide-react";
 import { Button } from "../ui/button";
 import Navbar from "../ui/Navbar";
 import { setCart } from "@/app/slice/cartSlice";
@@ -22,12 +22,12 @@ const ProductsDetails = () => {
 
     const [isFavorite, setIsFavorite] = useState<boolean>(true);
     const [favorite, setFavorite] = useState<string>('');
-
+    
     const handleFavorite = () => {
         setIsFavorite(!isFavorite);
         if (isFavorite) {
-            setFavorite('yellow');
-            toast('added to favorite');
+        setFavorite('yellow')
+        toast('added to favorite');
             // check data for adding items to favorite
             if (data) {
                 dispatch(
@@ -49,6 +49,7 @@ const ProductsDetails = () => {
                 )
             };
         }
+        localStorage.setItem('fav', JSON.stringify(favorite));
     };
     
 
@@ -60,7 +61,7 @@ const ProductsDetails = () => {
                     image: data.image,
                     title: data.title,
                     price: data.price,
-                    quantity: 1
+                    quantity: 1,
                 })
             )
             const totalQuantity = dataCart.reduce((sum, item) => sum + item.quantity, 0);
@@ -81,6 +82,15 @@ if (error) return <div className="text-3xl text-white">Error</div>
     return (
         <main className="mt-32 lg:mt-0">
             <Navbar navTitle={"Toku-Ku"}>
+                <NavLink to={'/cart'}>
+                    { ({ isActive }: { isActive: boolean }) => (
+                    <Button className="cursor-pointer hover:bg-gray-800">
+                        <ShoppingCart color="#ffffff" className={isActive ? 'fill-white' : 'fill-none'} strokeWidth={1.5} />
+                        Cart
+                    </Button>
+                    ) }
+                </NavLink>
+
                 <NavLink to={'/favorite'}>
                     <Button className="cursor-pointer hover:bg-gray-800">
                         <Star color="#ffffff" strokeWidth={1.5} />
@@ -98,6 +108,7 @@ if (error) return <div className="text-3xl text-white">Error</div>
                         <div className="flex justify-between">
                             <Badge className="bg-white text-black">{data?.category}</Badge>
                             <Button onClick={handleFavorite} className="cursor-pointer">
+                                    {/* INI PROBLEMNyA */}
                                 <Star fill={favorite} strokeWidth={1.75} />
                             </Button>
                         </div>
