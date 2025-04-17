@@ -41,12 +41,12 @@ const MainPage = () => {
                 </NavLink>
             </Navbar>
 
-            <section className="grid grid-cols-5 gap-5 pt-20">
+            <section className="grid grid-cols-2 lg:grid-cols-5 gap-5 pt-20">
                 {randomProducts(data, data.length).map((a) => (
                     <Card onClick={() => {navigate(`/details/${a.id}`)}} key={a.id} className="py-4">
                         <CardContent className="space-y-5">
                             <div>
-                                <img className="w-40 h-40 cursor-pointer" src={a.image} alt={a.title} />
+                                <img className="w-24 h-24 lg:w-40 lg:h-40 cursor-pointer" src={a.image} alt={a.title} />
                             </div>
                             <CardTitle className="space-y-1">
                                 <h1 className="cursor-pointer">{limitTitle(a.title)}</h1>
