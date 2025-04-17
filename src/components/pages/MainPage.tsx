@@ -23,8 +23,8 @@ const MainPage = () => {
 
 
     return (
-        <main className="px-10">
-            <Navbar navTitle={"Toku-Ku"} input={<Input placeholder="Search" />}>
+        <main className="">
+            <Navbar className="" navTitle={"Toku-Ku"} input={<Input placeholder="Search" />}>
                 <NavLink to={'cart'}>
                     { ({ isActive }: { isActive: boolean }) => (
                     <Button className="cursor-pointer hover:bg-gray-800">
