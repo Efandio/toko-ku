@@ -103,7 +103,7 @@ if (error) return <div className="text-3xl text-white">Error</div>
                     <img className="w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] lg:fixed" src={data?.image} alt={data?.title} />
                 </section>
 
-                <section className="h-full space-y-5">
+                <section className="h-full pb-10 space-y-5">
                     <header>
                         <div className="flex justify-between">
                             <Badge className="bg-white text-black">{data?.category}</Badge>
