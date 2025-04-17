@@ -23,7 +23,7 @@ const MainPage = () => {
 
 
     return (
-        <main className="">
+        <main className="px-2 flex justify-center">
             <Navbar className="" navTitle={"Toku-Ku"} input={<Input placeholder="Search" />}>
                 <NavLink to={'cart'}>
                     { ({ isActive }: { isActive: boolean }) => (
@@ -41,7 +41,7 @@ const MainPage = () => {
                 </NavLink>
             </Navbar>
 
-            <section className="grid grid-cols-2 lg:grid-cols-5 gap-5 pt-20">
+            <section className="grid grid-cols-2 lg:grid-cols-5 gap-5 pt-40 lg:pt-20">
                 {randomProducts(data, data.length).map((a) => (
                     <Card onClick={() => {navigate(`/details/${a.id}`)}} key={a.id} className="py-4">
                         <CardContent className="space-y-5">
